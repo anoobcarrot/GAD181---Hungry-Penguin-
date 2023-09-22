@@ -18,11 +18,12 @@ public class EndSceneController : MonoBehaviour
 
     private void Start()
     {
+        videoPlayer.url = System.IO.Path.Combine(Application.streamingAssetsPath, "adult.mp4");
         // Start playing the video
         videoPlayer.Play();
 
         // Delay for before displaying text
-        Invoke("DisplayEndText", (float)videoPlayer.length + 0f);
+        Invoke("DisplayEndText", (float)videoPlayer.length + 5.2f);
     }
 
     private void DisplayEndText()

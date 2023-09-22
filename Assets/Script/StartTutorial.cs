@@ -2,15 +2,21 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.Video;
 
 public class StartTutorial : MonoBehaviour
 {
     [SerializeField] private float delayBeforeTransition = 1f; // Delay in seconds before transitioning
     [SerializeField] private CanvasGroup tutorialCanvasGroup;
     [SerializeField] private float fadeDuration = 2f; // Duration of the fade-in and fade-out effects
+    [SerializeField] private VideoPlayer walkPlayer;
+    [SerializeField] private VideoPlayer jumpPlayer;
 
     private void Start()
     {
+        walkPlayer.url = System.IO.Path.Combine(Application.streamingAssetsPath, "walk.mp4");
+        jumpPlayer.url = System.IO.Path.Combine(Application.streamingAssetsPath, "jump.mp4");
+
         // Start with a fully transparent canvas
         tutorialCanvasGroup.alpha = 0f;
 
