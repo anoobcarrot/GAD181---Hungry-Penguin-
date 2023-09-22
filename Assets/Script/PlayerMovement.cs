@@ -44,6 +44,28 @@ public class PlayerMovement : MonoBehaviour
         Vector2 movement = new Vector2(horizontalInput * moveSpeed, rb.velocity.y);
         rb.velocity = movement;
 
+        // Get the player's current position
+        Vector2 currentPosition = rb.position;
+
+        // Calculate screen boundaries
+        Camera mainCamera = Camera.main;
+        float cameraHalfWidth = mainCamera.orthographicSize * mainCamera.aspect; // Half of the camera's width
+        float cameraHalfHeight = mainCamera.orthographicSize; // Half of the camera's height
+
+        float minX = mainCamera.transform.position.x - cameraHalfWidth;
+        float maxX = mainCamera.transform.position.x + cameraHalfWidth;
+        float minY = mainCamera.transform.position.y - cameraHalfHeight;
+        float maxY = mainCamera.transform.position.y + cameraHalfHeight;
+
+        // Clamp the player's X position within the screen boundaries
+        currentPosition.x = Mathf.Clamp(currentPosition.x, minX, maxX);
+
+        // Clamp the player's Y position within the screen boundaries
+        currentPosition.y = Mathf.Clamp(currentPosition.y, minY, maxY);
+
+        // Update the player's position
+        rb.position = currentPosition;
+
         // Detect key presses for walking animations.
         if (Input.GetKeyDown(KeyCode.D))
         {
