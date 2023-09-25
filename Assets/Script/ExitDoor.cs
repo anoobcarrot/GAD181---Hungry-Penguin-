@@ -15,18 +15,18 @@ public class ExitDoor : MonoBehaviour
 
     private void Update()
     {
-        // Check if the player is in range (inside the door's collider) and is right-clicking.
+        // Check if the player is in range (inside the door's collider) and is right-clicking
         if (playerInRange && Input.GetMouseButtonDown(1) && gameManager != null)
         {
-            // Check if all fish are collected before allowing access.
+            // Check if all fish are collected before allowing access
             if (FishCollectionManager.instance.AreAllFishCollected())
             {
-                // Load the next level.
+                // Load the next level
                 gameManager.LoadNextLevel();
             }
             else
             {
-                // Optionally, you can display a message or take other actions here.
+                // Testing purposes
                 Debug.Log("Cannot access the door. Collect all fish first.");
             }
         }
@@ -34,7 +34,7 @@ public class ExitDoor : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        // Check if the entering collider is the player.
+        // Check if the entering collider is the player
         if (other.CompareTag("Player"))
         {
             // Player is in range.
@@ -44,10 +44,10 @@ public class ExitDoor : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        // Check if the exiting collider is the player.
+        // Check if the exiting collider is the player
         if (other.CompareTag("Player"))
         {
-            // Player is out of range.
+            // Player is out of range
             playerInRange = false;
         }
     }

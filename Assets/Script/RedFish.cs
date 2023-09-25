@@ -9,17 +9,17 @@ public class RedFish : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             Debug.Log("Fish collected by player");
-            // Collect the red fish.
+            // Collect the red fish
             PlayerMovement playerMovement = other.GetComponent<PlayerMovement>();
             if (playerMovement != null)
             {
-                // Disable the red fish object.
+                // Disable the red fish object
                 gameObject.SetActive(false);
 
                 // Call the AlllowFly method
                 playerMovement.AllowFly();
                 
-                // Notify the Fish Collection Manager that this fish is collected.
+                // Notify the Fish Collection Manager that this fish is collected
                 FishCollectionManager.instance.CollectFish(gameObject);
             }
         }

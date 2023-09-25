@@ -10,7 +10,7 @@ public class StartGame : MonoBehaviour
     [SerializeField] private Button startButton;
 
     [SerializeField] private string nextSceneName;
-    [SerializeField] private float delayBeforeTransition = 2f; // Adjust the delay as needed
+    [SerializeField] private float delayBeforeTransition = 2f; 
 
     public void LoadGameScene()
     {

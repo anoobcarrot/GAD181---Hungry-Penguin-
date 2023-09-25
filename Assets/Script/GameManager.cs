@@ -5,8 +5,8 @@ using TMPro;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private float totalTime = 10f; // Total time for the level.
-    private float currentTime; // Current time remaining.
+    [SerializeField] private float totalTime = 10f; // Total time for the level
+    private float currentTime; // Current time remaining
     private bool playerReachedDoor = false;
 
     [SerializeField] private GameObject exitDoor;
@@ -34,7 +34,7 @@ public class GameManager : MonoBehaviour
 
             if (currentTime <= 0f)
             {
-                // Player ran out of time, perform game over actions.
+                // Player ran out of time, perform game over actions
                 GameOver();
             }
         }
@@ -47,7 +47,7 @@ public class GameManager : MonoBehaviour
 
     public bool PlayerReachedDoor()
     {
-        // Called when the player reaches the exit door.
+        // Called when the player reaches the exit door
         if (!playerReachedDoor)
         {
             playerReachedDoor = true;
@@ -100,20 +100,20 @@ public class GameManager : MonoBehaviour
 
     public void LoadNextLevel()
     {
-        // Get the current scene's build index.
+        // Get the current scene's build index
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
 
-        // Load the next scene by incrementing the build index.
+        // Load the next scene by incrementing the build index
         int nextSceneIndex = currentSceneIndex + 1;
 
-        // Check if the next scene index is valid (within the build settings).
+        // Check if the next scene index is valid (within the build settings)
         if (nextSceneIndex < SceneManager.sceneCountInBuildSettings)
         {
             SceneManager.LoadScene(nextSceneIndex);
         }
         else
         {
-            // If there is no next scene, you can handle it accordingly.
+            // If there is no next scene, you can handle it accordingly
             Debug.LogWarning("There is no next scene in the build settings.");
         }
     }

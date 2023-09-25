@@ -36,7 +36,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        // Check if the player is grounded using the Collider2D component.
+        // Check if the player is grounded 
         isGrounded = playerCollider.IsTouchingLayers(LayerMask.GetMask("Ground")); // Get Ground Layer
 
         // Move the player horizontally.
@@ -66,110 +66,110 @@ public class PlayerMovement : MonoBehaviour
         // Update the player's position
         rb.position = currentPosition;
 
-        // Detect key presses for walking animations.
+        // Detect key presses for walking animations
         if (Input.GetKeyDown(KeyCode.D))
         {
-            // Set the "IsWalkingRight" parameter to true.
+            // Set the "IsWalkingRight" parameter to true
             animator.SetBool("IsWalkingRight", true);
             animator.SetBool("IsWalkingLeft", false); // Ensure the opposite direction is set to false
         }
         else if (Input.GetKeyDown(KeyCode.A))
         {
-            // Set the "IsWalkingLeft" parameter to true.
+            // Set the "IsWalkingLeft" parameter to true
             animator.SetBool("IsWalkingLeft", true);
             animator.SetBool("IsWalkingRight", false); // Ensure the opposite direction is set to false
         }
 
-        // Detect key releases to stop walking animations and return to idle.
+        // Detect key releases to stop walking animations and return to idle
         if (Input.GetKeyUp(KeyCode.D) || Input.GetKeyUp(KeyCode.A))
         {
-            // Set both "IsWalkingRight" and "IsWalkingLeft" parameters to false.
+            // Set both "IsWalkingRight" and "IsWalkingLeft" parameters to false
             animator.SetBool("IsWalkingRight", false);
             animator.SetBool("IsWalkingLeft", false);
         }
 
-        // Detect key press for jumping.
+        // Detect key press for jumping
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
-            // Determine the direction of the jump animation based on the horizontal input.
+            // Determine the direction of the jump animation based on the horizontal input
             bool isJumpingLeft = horizontalInput < 0;
             bool isJumpingRight = horizontalInput > 0;
 
-            // Perform the jump.
+            // Perform the jump
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
 
-            // Set the jump direction parameters in the Animator.
+            // Set the jump direction parameters in the Animator
             animator.SetBool("IsJumpingLeft", isJumpingLeft);
             animator.SetBool("IsJumpingRight", isJumpingRight);
 
-            // Set the IsJumpingStationary parameter to true for a stationary jump.
+            // Set the IsJumpingStationary parameter to true for a stationary jump
             animator.SetBool("IsJumpingStationary", true);
         }
 
-        // Detect key press for sliding(blue fish).
+        // Detect key press for sliding(blue fish)
         if (Input.GetKeyDown(KeyCode.S) && isGrounded && canSlide && collectedBlueFish)
         {
-            // Reset the collectedBlueFish flag.
+            // Reset the collectedBlueFish flag
             collectedBlueFish = false;
 
-            // Determine the direction of the slide animation based on the horizontal input.
+            // Determine the direction of the slide animation based on the horizontal input
             isSlidingLeft = horizontalInput < 0;
             isSlidingRight = horizontalInput > 0;
 
-            // Set the slide direction parameters in the Animator.
+            // Set the slide direction parameters in the Animator
             animator.SetBool("IsSlidingLeft", isSlidingLeft);
             animator.SetBool("IsSlidingRight", isSlidingRight);
 
             if (isSlidingLeft || isSlidingRight)
             {
-                moveSpeed *= 2f; // Double the move speed while sliding left or right.
+                moveSpeed *= 2f; // Double the move speed while sliding left or right
                 StartCoroutine(DisableSlideAfterDuration(slideDuration));
             }
         }
 
-        // Detect key release to stop sliding animations and reset actions.
+        // Detect key release to stop sliding animations and reset actions
         if (Input.GetKeyUp(KeyCode.S))
         {
-            // Reset slide direction parameters in the Animator.
+            // Reset slide direction parameters in the Animator
             animator.SetBool("IsSlidingLeft", false);
             animator.SetBool("IsSlidingRight", false);
 
-            moveSpeed = 5f; // Reset move speed to the default value.
+            moveSpeed = 5f; // Reset move speed to the default value
         }
 
-        // Detect key press for flying (red fish).
+        // Detect key press for flying (red fish)
         if (Input.GetKeyDown(KeyCode.W) && canFly && collectedRedFish)
         {
             Debug.Log("Is Flying");
-            // Reset the collectedRedFish flag.
+            // Reset the collectedRedFish flag
             collectedRedFish = false;
 
             isFlyingUp = true;
             flyTimer = flyDuration;
             rb.gravityScale = 0f; // Disable gravity while flying
 
-            // Set the flying direction parameters in the Animator.
+            // Set the flying direction parameters in the Animator
             animator.SetBool("IsFlyingUp", isFlyingUp);
 
-            // Set the "IsFlying" parameter in the Animator to true.
-            animator.SetBool("IsFlying", true); // Add this line
+            // Set the "IsFlying" parameter in the Animator to true
+            animator.SetBool("IsFlying", true);
         }
 
-        // Detect key release to stop flying.
+        // Detect key release to stop flying
         if (Input.GetKeyUp(KeyCode.W))
         {
             isFlyingUp = false;
             rb.gravityScale = 1f; // Restore gravity after flying
 
-            // Reset flying direction parameters in the Animator.
+            // Reset flying direction parameters in the Animator
             animator.SetBool("IsFlyingUp", isFlyingUp);
 
-            // Set the "IsFlying" parameter in the Animator to false.
-            animator.SetBool("IsFlying", false); // Add this line
+            // Set the "IsFlying" parameter in the Animator to false
+            animator.SetBool("IsFlying", false); 
         }
 
 
-        // Update the flying timer.
+        // Update the flying timer
         if (isFlyingUp)
         {
             flyTimer -= Time.deltaTime;
@@ -179,24 +179,24 @@ public class PlayerMovement : MonoBehaviour
                 isFlyingUp = false;
                 rb.gravityScale = 1f; // Restore gravity after flying
 
-                // Reset flying direction parameters in the Animator.
+                // Reset flying direction parameters in the Animator
                 animator.SetBool("IsFlyingUp", isFlyingUp);
 
-                // Set the "IsFlying" parameter in the Animator to false.
-                animator.SetBool("IsFlying", false); // Add this line
+                // Set the "IsFlying" parameter in the Animator to false
+                animator.SetBool("IsFlying", false); 
             }
         }
     }
 
         private void LateUpdate()
     {
-        // Reset the jump direction parameters in the Animator when grounded.
+        // Reset the jump direction parameters in the Animator when grounded
         if (isGrounded)
         {
             animator.SetBool("IsJumpingLeft", false);
             animator.SetBool("IsJumpingRight", false);
 
-            // Reset the IsJumpingStationary parameter.
+            // Reset the IsJumpingStationary parameter
             animator.SetBool("IsJumpingStationary", false);
 
         }
@@ -206,31 +206,31 @@ public class PlayerMovement : MonoBehaviour
     {
         yield return new WaitForSeconds(duration);
 
-        // Disable sliding and reset sliding animation.
+        // Disable sliding and reset sliding animation
         canSlide = false;
         isSlidingLeft = false;
         isSlidingRight = false;
 
-        // Reset move speed to the default value.
+        // Reset move speed to the default value
         moveSpeed = 5f;
 
-        // Reset sliding animation.
+        // Reset sliding animation
         animator.SetBool("IsSlidingLeft", false);
         animator.SetBool("IsSlidingRight", false);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("BlueFish")) // Assuming "BlueFish" is the tag for the blue fish.
+        if (other.CompareTag("BlueFish")) // Assuming "BlueFish" is the tag for the blue fish
         {
-            // Handle the collection of the blue fish.
+            // Handle the collection of the blue fish
             collectedBlueFish = true;
 
             Destroy(other.gameObject);
         }
-        else if (other.CompareTag("RedFish")) // Assuming "RedFish" is the tag for the red fish.
+        else if (other.CompareTag("RedFish")) // Assuming "RedFish" is the tag for the red fish
         {
-            // Handle the collection of the red fish.
+            // Handle the collection of the red fish
             collectedRedFish = true;
             Debug.Log("Red fish collected");
 
