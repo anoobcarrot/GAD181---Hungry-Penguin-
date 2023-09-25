@@ -12,6 +12,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Start Tutorial.unity
     guid: 3ccb24c3af9964ede973146ea55fbdc6
   - enabled: 1
+    path: Assets/Scenes/Blue Fish Tutorial.unity
+    guid: 6944b3d8b90c44f1f919bcfff2a853cb
+  - enabled: 1
     path: Assets/Scenes/Level 1.unity
     guid: e682e3b15eff6428680e04129ccd0886
   - enabled: 1
