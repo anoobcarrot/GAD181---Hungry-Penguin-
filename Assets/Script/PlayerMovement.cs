@@ -22,7 +22,6 @@ public class PlayerMovement : MonoBehaviour
     private bool canFly = false; // Flag to determine if flying is allowed
     private float flyDuration = 2f; // Duration of the fly
     private float flyTimer = 0f; // Timer for flying
-    private bool hasRedFish = false;
     private LayerMask groundLayer;
 
     private void Start()
