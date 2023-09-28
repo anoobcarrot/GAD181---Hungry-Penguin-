@@ -23,4 +23,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/End.unity
     guid: 22c9300f12de342df91314f9693f2b66
+  - enabled: 1
+    path: Assets/Matts demo stuff/DemoMatt.unity
+    guid: 4275dda7cc2ba764facf231590c3f629
+  - enabled: 1
+    path: Assets/Matts demo stuff/DemoMatt Lvl1.unity
+    guid: b3e1f8c144132ee49bab09da32da7aff
   m_configObjects: {}
