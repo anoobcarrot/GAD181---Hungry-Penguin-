@@ -15,6 +15,7 @@ public class PlayerMovement : MonoBehaviour
 
     private bool isSlidingLeft = false;
     private bool isSlidingRight = false;
+    private bool isSliding = false;
     private bool canSlide = false; // Flag to determine if sliding is allowed
     private float slideDuration = 3f; // Duration of the slide
 
@@ -24,6 +25,10 @@ public class PlayerMovement : MonoBehaviour
     private float flyTimer = 0f; // Timer for flying
     private LayerMask groundLayer;
 
+    private PlayerHealth playerHealth;
+
+    private bool isCollidingWithEnemy = false;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -31,6 +36,8 @@ public class PlayerMovement : MonoBehaviour
         animator = GetComponent<Animator>();
 
         groundLayer = LayerMask.GetMask("Ground");
+
+        playerHealth = GetComponent<PlayerHealth>();
     }
 
     private void Update()
@@ -122,6 +129,7 @@ public class PlayerMovement : MonoBehaviour
             if (isSlidingLeft || isSlidingRight)
             {
                 moveSpeed *= 2f; // Double the move speed while sliding left or right
+                isSliding = true; // Set the sliding flag to true
                 StartCoroutine(DisableSlideAfterDuration(slideDuration));
             }
         }
@@ -134,6 +142,7 @@ public class PlayerMovement : MonoBehaviour
             animator.SetBool("IsSlidingRight", false);
 
             moveSpeed = 5f; // Reset move speed to the default value
+            isSliding = false; // Set the sliding flag to false
         }
 
         // Detect key press for flying (red fish)
@@ -164,7 +173,7 @@ public class PlayerMovement : MonoBehaviour
             animator.SetBool("IsFlyingUp", isFlyingUp);
 
             // Set the "IsFlying" parameter in the Animator to false
-            animator.SetBool("IsFlying", false); 
+            animator.SetBool("IsFlying", false);
         }
 
 
@@ -182,7 +191,17 @@ public class PlayerMovement : MonoBehaviour
                 animator.SetBool("IsFlyingUp", isFlyingUp);
 
                 // Set the "IsFlying" parameter in the Animator to false
-                animator.SetBool("IsFlying", false); 
+                animator.SetBool("IsFlying", false);
+            }
+        }
+
+        if (isCollidingWithEnemy)
+        {
+            // If so, continuously damage the player's health
+            PlayerHealth playerHealth = GetComponent<PlayerHealth>();
+            if (playerHealth != null)
+            {
+                playerHealth.TakeDamage(1); // Damage the player health
             }
         }
     }
@@ -235,6 +254,40 @@ public class PlayerMovement : MonoBehaviour
 
             Destroy(other.gameObject);
         }
+
+        else if (other.CompareTag("Enemy")) // Enemy Tag
+        {
+            // Check if player is currently sliding
+            if (isSliding)
+            {
+                // Get enemy script
+                EnemyAI enemy = other.GetComponent<EnemyAI>();
+
+                // Check if the enemy exists and is not destroyed
+                if (enemy != null && !enemy.IsDestroyed())
+                {
+                    enemy.TakeDamage(1); // Damage enemy 
+                    playerHealth.SetEnemyDestroyed(true); // Set the enemy destroyed flag
+                }
+            }
+
+            // Set a flag for the player colliding with enemy
+            isCollidingWithEnemy = true;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("Enemy")) // Enemy Tag
+        {
+            // Reset the flag 
+            isCollidingWithEnemy = false;
+        }
+    }
+
+    public bool IsSliding
+    {
+        get { return isSliding; }
     }
 
     public void AllowSlide()
