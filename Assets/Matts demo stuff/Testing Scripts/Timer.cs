@@ -78,7 +78,7 @@ public class Timer : MonoBehaviour
     }
 
     //stop timer function that can be called
-    private void StopTimer()
+    public void StopTimer()
     {
         isTimerRunning = false;
     }
