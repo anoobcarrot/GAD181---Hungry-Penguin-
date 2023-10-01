@@ -25,9 +25,6 @@ public class LoadLevel : MonoBehaviour
         // Check if the collider is a player
         if (other.CompareTag("Player"))
         {
-            // Check if all fish are collected before allowing access (ADDED THIS)
-            if (FishCollectionManager.instance.AreAllFishCollected())
-            {
                 // Disable the player game object
                 playerObject.SetActive(false);
 
@@ -46,13 +43,7 @@ public class LoadLevel : MonoBehaviour
                 // Call The LoadLevelDelayed method after a delay
                 Invoke("LoadLevelDelayed", loadLevelDelay);
             }
-            else
-            {
-                // Testing purposes (ADDED THIS)
-                Debug.Log("Cannot access le door. Collect fishies");
-            }
         }
-    }
 
     private void LoadLevelDelayed()
     {

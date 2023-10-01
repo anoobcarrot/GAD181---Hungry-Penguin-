@@ -7560,6 +7560,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 33875974}
     - target: {fileID: 3390645682489611225, guid: fc97d1cdc121e33478e09388bde39d80, type: 3}
+      propertyPath: levelName
+      value: Level 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3390645682489611225, guid: fc97d1cdc121e33478e09388bde39d80, type: 3}
       propertyPath: playerObject
       value: 
       objectReference: {fileID: 153216021}

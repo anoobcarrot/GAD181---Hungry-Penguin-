@@ -15,10 +15,10 @@ EditorBuildSettings:
     path: Assets/Scenes/Blue Fish Tutorial.unity
     guid: 6944b3d8b90c44f1f919bcfff2a853cb
   - enabled: 1
-    path: Assets/Scenes/Level 1.unity
+    path: Assets/Scenes/Level 1 Test.unity
     guid: e682e3b15eff6428680e04129ccd0886
   - enabled: 1
-    path: Assets/Scenes/Level 2.unity
+    path: Assets/Scenes/Level 2 Test.unity
     guid: 58cee7ed3ec2b406f80577ee5c7612cc
   - enabled: 1
     path: Assets/Scenes/End.unity
@@ -29,4 +29,37 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Matts demo stuff/DemoMatt Lvl1.unity
     guid: b3e1f8c144132ee49bab09da32da7aff
+  - enabled: 1
+    path: Assets/Scenes/Levels/Level 1.unity
+    guid: 1105abc6019914e57a8567b4d47ff64c
+  - enabled: 1
+    path: Assets/Scenes/Levels/Level 2.unity
+    guid: e137bcff65b424c188b7cbeaad498bf4
+  - enabled: 1
+    path: Assets/Scenes/Levels/Level 3.unity
+    guid: ac7ea9b5824f1426faa8259ae85545e0
+  - enabled: 1
+    path: Assets/Scenes/Levels/Level 4.unity
+    guid: b9fe7658f796148139f0cdca7545269c
+  - enabled: 1
+    path: Assets/Scenes/Levels/Level 5.unity
+    guid: 8462aed1f19894762bdcc9dacd2b9ecd
+  - enabled: 1
+    path: Assets/Scenes/Levels/Level 6.unity
+    guid: 66b5247182ed2450689d3462011a0061
+  - enabled: 1
+    path: Assets/Scenes/Levels/Level 7.unity
+    guid: 09fa1d9ef04db45f7a5d10e638f2527a
+  - enabled: 1
+    path: Assets/Scenes/Levels/Level 8.unity
+    guid: 916afb94a9add41c48c3b47da7859063
+  - enabled: 1
+    path: Assets/Scenes/Levels/Level 9.unity
+    guid: 68cfcff67551a416e9f02766b6709d16
+  - enabled: 1
+    path: Assets/Scenes/Levels/Level 10.unity
+    guid: 3c7595eea88c746a7aa3cbdb280fb490
+  - enabled: 1
+    path: Assets/Scenes/Levels/Level 11.unity
+    guid: 419d5de4611944c12948fe974f38188d
   m_configObjects: {}
