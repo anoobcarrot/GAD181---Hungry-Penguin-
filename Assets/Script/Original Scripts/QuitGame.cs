@@ -14,7 +14,7 @@ public class QuitGame : MonoBehaviour
     private IEnumerator QuitWithDelay()
     {
         // Wait for a short delay before quitting
-        yield return new WaitForSeconds(1f); // Adjust the delay as needed
+        yield return new WaitForSeconds(0.5f); // Adjust the delay as needed
 
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
