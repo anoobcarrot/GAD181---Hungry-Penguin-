@@ -13,6 +13,8 @@ public class PlayerMovement : MonoBehaviour
     private bool collectedBlueFish = false;
     private bool collectedRedFish = false;
 
+    private bool isJumping = false;
+
     private bool isSlidingLeft = false;
     private bool isSlidingRight = false;
     private bool isSliding = false;
@@ -45,7 +47,7 @@ public class PlayerMovement : MonoBehaviour
         // Check if the player is grounded 
         isGrounded = playerCollider.IsTouchingLayers(LayerMask.GetMask("Ground")); // Get Ground Layer
 
-        // Move the player horizontally.
+        // Move the player horizontally
         float horizontalInput = Input.GetAxis("Horizontal");
         Vector2 movement = new Vector2(horizontalInput * moveSpeed, rb.velocity.y);
         rb.velocity = movement;
@@ -53,63 +55,28 @@ public class PlayerMovement : MonoBehaviour
         // Get the player's current position
         Vector2 currentPosition = rb.position;
 
-        // Calculate screen boundaries
-        Camera mainCamera = Camera.main;
-        float cameraHalfWidth = mainCamera.orthographicSize * mainCamera.aspect; // Half of the camera's width
-        float cameraHalfHeight = mainCamera.orthographicSize; // Half of the camera's height
-
-        float minX = mainCamera.transform.position.x - cameraHalfWidth;
-        float maxX = mainCamera.transform.position.x + cameraHalfWidth;
-        float minY = mainCamera.transform.position.y - cameraHalfHeight;
-        float maxY = mainCamera.transform.position.y + cameraHalfHeight;
-
-        // Clamp the player's X position within the screen boundaries
-        currentPosition.x = Mathf.Clamp(currentPosition.x, minX, maxX);
-
-        // Clamp the player's Y position within the screen boundaries
-        currentPosition.y = Mathf.Clamp(currentPosition.y, minY, maxY);
-
         // Update the player's position
         rb.position = currentPosition;
 
-        // Detect key presses for walking animations
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            // Set the "IsWalkingRight" parameter to true
-            animator.SetBool("IsWalkingRight", true);
-            animator.SetBool("IsWalkingLeft", false); // Ensure the opposite direction is set to false
-        }
-        else if (Input.GetKeyDown(KeyCode.A))
-        {
-            // Set the "IsWalkingLeft" parameter to true
-            animator.SetBool("IsWalkingLeft", true);
-            animator.SetBool("IsWalkingRight", false); // Ensure the opposite direction is set to false
-        }
+        bool isWalking = movement != Vector2.zero;
+        animator.SetBool("IsWalking", isWalking);
 
-        // Detect key releases to stop walking animations and return to idle
-        if (Input.GetKeyUp(KeyCode.D) || Input.GetKeyUp(KeyCode.A))
-        {
-            // Set both "IsWalkingRight" and "IsWalkingLeft" parameters to false
-            animator.SetBool("IsWalkingRight", false);
-            animator.SetBool("IsWalkingLeft", false);
-        }
+        // Horizontal Parameter
+        animator.SetFloat("Horizontal", horizontalInput);
 
         // Detect key press for jumping
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
-            // Determine the direction of the jump animation based on the horizontal input
-            bool isJumpingLeft = horizontalInput < 0;
-            bool isJumpingRight = horizontalInput > 0;
+            // Set the "IsJumping" parameter to true.
+            animator.SetBool("IsJumping", true);
 
-            // Perform the jump
+            // JUMPPP
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+        }
 
-            // Set the jump direction parameters in the Animator
-            animator.SetBool("IsJumpingLeft", isJumpingLeft);
-            animator.SetBool("IsJumpingRight", isJumpingRight);
-
-            // Set the IsJumpingStationary parameter to true for a stationary jump
-            animator.SetBool("IsJumpingStationary", true);
+        if (isGrounded)
+        {
+            animator.SetBool("IsJumping", false);
         }
 
         // Detect key press for sliding(blue fish)
@@ -176,7 +143,6 @@ public class PlayerMovement : MonoBehaviour
             animator.SetBool("IsFlying", false);
         }
 
-
         // Update the flying timer
         if (isFlyingUp)
         {
@@ -211,12 +177,7 @@ public class PlayerMovement : MonoBehaviour
         // Reset the jump direction parameters in the Animator when grounded
         if (isGrounded)
         {
-            animator.SetBool("IsJumpingLeft", false);
-            animator.SetBool("IsJumpingRight", false);
-
-            // Reset the IsJumpingStationary parameter
-            animator.SetBool("IsJumpingStationary", false);
-
+            animator.SetBool("IsJumping", false);
         }
     }
 

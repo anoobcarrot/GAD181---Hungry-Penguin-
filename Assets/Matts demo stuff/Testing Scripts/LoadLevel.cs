@@ -22,31 +22,39 @@ public class LoadLevel : MonoBehaviour
     
     private void OnTriggerEnter2D (Collider2D other)
     {
-        //Check if the collider is a player
-        if(other.CompareTag("Player"))
+        // Check if the collider is a player
+        if (other.CompareTag("Player"))
         {
-            //Disable the player game object
-            playerObject.SetActive(false);
-
-            // play sound effect
-            audioSource.PlayOneShot(youWonSound);
-
-            //animation start
-            animator.SetBool("ontrigger", true);
-
-            // Call the StopTimer method from the Timer script
-            if (timer != null)
+            // Check if all fish are collected before allowing access (ADDED THIS)
+            if (FishCollectionManager.instance.AreAllFishCollected())
             {
-                timer.StopTimer();
+                // Disable the player game object
+                playerObject.SetActive(false);
+
+                // Play sound effect
+                audioSource.PlayOneShot(youWonSound);
+
+                // Animation start
+                animator.SetBool("ontrigger", true);
+
+                // Call the StopTimer method from the Timer script
+                if (timer != null)
+                {
+                    timer.StopTimer();
+                }
+
+                // Call The LoadLevelDelayed method after a delay
+                Invoke("LoadLevelDelayed", loadLevelDelay);
             }
-
-            //Call The LoadLevelDelayed method after a delay
-            Invoke("LoadLevelDelayed", loadLevelDelay);
-
+            else
+            {
+                // Testing purposes (ADDED THIS)
+                Debug.Log("Cannot access le door. Collect fishies");
+            }
         }
     }
 
-   private void LoadLevelDelayed()
+    private void LoadLevelDelayed()
     {
         // Load the specified level
         SceneManager.LoadScene(levelName);
