@@ -4,7 +4,12 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 5f;
-    [SerializeField] private float jumpForce = 6f;
+    [SerializeField] private float jumpForce = 7f;
+
+    [SerializeField] private float flapForce = 3f; // Force applied when flapping
+    [SerializeField] private float flapDuration = 2f; // Maximum duration of flapping
+    private float currentFlapDuration = 0f;
+
     private bool isGrounded = false;
     private Rigidbody2D rb;
     private Collider2D playerCollider;
@@ -13,7 +18,8 @@ public class PlayerMovement : MonoBehaviour
     private bool collectedBlueFish = false;
     private bool collectedRedFish = false;
 
-    private bool isJumping = false;
+    private bool isFlapping = false; // Flag to determine if the player is currently flapping
+    private bool canFlap = false;
 
     private bool isSlidingLeft = false;
     private bool isSlidingRight = false;
@@ -21,10 +27,6 @@ public class PlayerMovement : MonoBehaviour
     private bool canSlide = false; // Flag to determine if sliding is allowed
     private float slideDuration = 3f; // Duration of the slide
 
-    private bool isFlyingUp = false;
-    private bool canFly = false; // Flag to determine if flying is allowed
-    private float flyDuration = 2f; // Duration of the fly
-    private float flyTimer = 0f; // Timer for flying
     private LayerMask groundLayer;
 
     private PlayerHealth playerHealth;
@@ -64,7 +66,6 @@ public class PlayerMovement : MonoBehaviour
         // Horizontal Parameter
         animator.SetFloat("Horizontal", horizontalInput);
 
-        // Detect key press for jumping
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
             // Set the "IsJumping" parameter to true.
@@ -77,6 +78,27 @@ public class PlayerMovement : MonoBehaviour
         if (isGrounded)
         {
             animator.SetBool("IsJumping", false);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space) && collectedRedFish && canFlap)
+        {
+            Debug.Log("Is Flapping UPPPPP");
+            // Reset vertical velocity before flapping
+            rb.AddForce(Vector2.up * flapForce);
+
+            collectedRedFish = false;
+            isFlapping = true;
+            currentFlapDuration = 0f; // Reset the current flap duration
+        }
+
+        if (isFlapping)
+        {
+            currentFlapDuration += Time.deltaTime;
+
+            if (currentFlapDuration >= flapDuration)
+            {
+                isFlapping = false;
+            }
         }
 
         // Detect key press for sliding(blue fish)
@@ -110,55 +132,6 @@ public class PlayerMovement : MonoBehaviour
 
             moveSpeed = 5f; // Reset move speed to the default value
             isSliding = false; // Set the sliding flag to false
-        }
-
-        // Detect key press for flying (red fish)
-        if (Input.GetKeyDown(KeyCode.W) && canFly && collectedRedFish)
-        {
-            Debug.Log("Is Flying");
-            // Reset the collectedRedFish flag
-            collectedRedFish = false;
-
-            isFlyingUp = true;
-            flyTimer = flyDuration;
-            rb.gravityScale = 0f; // Disable gravity while flying
-
-            // Set the flying direction parameters in the Animator
-            animator.SetBool("IsFlyingUp", isFlyingUp);
-
-            // Set the "IsFlying" parameter in the Animator to true
-            animator.SetBool("IsFlying", true);
-        }
-
-        // Detect key release to stop flying
-        if (Input.GetKeyUp(KeyCode.W))
-        {
-            isFlyingUp = false;
-            rb.gravityScale = 1f; // Restore gravity after flying
-
-            // Reset flying direction parameters in the Animator
-            animator.SetBool("IsFlyingUp", isFlyingUp);
-
-            // Set the "IsFlying" parameter in the Animator to false
-            animator.SetBool("IsFlying", false);
-        }
-
-        // Update the flying timer
-        if (isFlyingUp)
-        {
-            flyTimer -= Time.deltaTime;
-
-            if (flyTimer <= 0f)
-            {
-                isFlyingUp = false;
-                rb.gravityScale = 1f; // Restore gravity after flying
-
-                // Reset flying direction parameters in the Animator
-                animator.SetBool("IsFlyingUp", isFlyingUp);
-
-                // Set the "IsFlying" parameter in the Animator to false
-                animator.SetBool("IsFlying", false);
-            }
         }
 
         if (isCollidingWithEnemy)
@@ -211,6 +184,7 @@ public class PlayerMovement : MonoBehaviour
         {
             // Handle the collection of the red fish
             collectedRedFish = true;
+
             Debug.Log("Red fish collected");
 
             Destroy(other.gameObject);
@@ -256,10 +230,10 @@ public class PlayerMovement : MonoBehaviour
         canSlide = true;
     }
 
-    public void AllowFly()
+    public void AllowFlap()
     {
-        canFly = true;
-        Debug.Log("Fly enabled");
+        canFlap = true;
+        Debug.Log("Flap enabled");
     }
 }
 

@@ -16,8 +16,8 @@ public class RedFish : MonoBehaviour
                 // Disable the red fish object
                 gameObject.SetActive(false);
 
-                // Call the AlllowFly method
-                playerMovement.AllowFly();
+                // Call the AlllowFlap method
+                playerMovement.AllowFlap();
                 
                 // Notify the Fish Collection Manager that this fish is collected
                 FishCollectionManager.instance.CollectFish(gameObject);
