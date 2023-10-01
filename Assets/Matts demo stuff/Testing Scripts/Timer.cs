@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Timer : MonoBehaviour
 {
@@ -17,6 +18,7 @@ public class Timer : MonoBehaviour
     {
         currentTime = startingTime;
         isTimerRunning = true;
+        Time.timeScale = 1f;
     }
     void Update()
     {
@@ -94,5 +96,7 @@ public class Timer : MonoBehaviour
     {
         Time.timeScale = 0f;
         Debug.Log("gameover dude");
+        Scene scene = SceneManager.GetActiveScene();
+        SceneManager.LoadScene(scene.name);
     }
 }

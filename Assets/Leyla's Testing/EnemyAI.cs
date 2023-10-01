@@ -9,12 +9,19 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] private int maxHealth = 1;
     private int currentHealth;
     private bool isDestroyed = false;
+    public float destroyDelay = 0.5f;
+
+    private AudioSource audioSource;
+    public AudioClip sealDeathSound;
+
+    public GameObject powerUp;
 
     private void Start()
     {
         // Find the player
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         currentHealth = maxHealth;
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -38,11 +45,19 @@ public class EnemyAI : MonoBehaviour
                 {
                     enemyCollider.enabled = false;
                 }
-
+                audioSource.PlayOneShot(sealDeathSound);
                 // Destroy the enemy GameObject
-                Destroy(gameObject);
+                StartCoroutine(Destruct());
             }
         }
+    }
+
+    //destroy seal after delay
+    IEnumerator Destruct()
+    {
+        Instantiate(powerUp, transform.position, Quaternion.identity);
+        yield return new WaitForSeconds(destroyDelay);
+        Destroy(this.gameObject);
     }
 
     public bool IsDestroyed()
