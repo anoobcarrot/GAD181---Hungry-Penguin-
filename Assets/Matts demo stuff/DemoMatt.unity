@@ -214,11 +214,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timer: {fileID: 33875974}
---- !u!1 &33875972 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5172525739185083888, guid: 3b080601abc5cfa44a3960319c331bf0, type: 3}
-  m_PrefabInstance: {fileID: 6321131934367757715}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &33875973 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3888547849307401258, guid: 3b080601abc5cfa44a3960319c331bf0, type: 3}
@@ -229,7 +224,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7606122117989376787, guid: 3b080601abc5cfa44a3960319c331bf0, type: 3}
   m_PrefabInstance: {fileID: 6321131934367757715}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 33875972}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3a9e9fa11b74dfa4e8bde37109ca7f95, type: 3}
@@ -2224,43 +2219,6 @@ MonoBehaviour:
   - {fileID: 1269736476}
   - {fileID: 651760705}
   - {fileID: 1512121481}
---- !u!1 &392110023
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 392110024}
-  m_Layer: 0
-  m_Name: Powerups
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &392110024
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 392110023}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 446959198}
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &446959198 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6462961880348845415, guid: f179a1ac146356849b68e2dcfeb59e9d, type: 3}
-  m_PrefabInstance: {fileID: 2019765510389336128}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &651760703
 GameObject:
   m_ObjectHideFlags: 0
@@ -2336,11 +2294,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 651760703}
   m_CullTransparentMesh: 1
---- !u!1 &962179568 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5956216041493430255, guid: f179a1ac146356849b68e2dcfeb59e9d, type: 3}
-  m_PrefabInstance: {fileID: 2019765510389336128}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &1147814757 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 925281670200521415, guid: d18e8abb7a7a8ee429def5df8bce0379, type: 3}
@@ -3424,71 +3377,6 @@ Transform:
   - {fileID: 125435579}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &2019765510389336128
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 392110024}
-    m_Modifications:
-    - target: {fileID: 2157380350850400769, guid: f179a1ac146356849b68e2dcfeb59e9d, type: 3}
-      propertyPath: timer
-      value: 
-      objectReference: {fileID: 33875974}
-    - target: {fileID: 2157380350850400769, guid: f179a1ac146356849b68e2dcfeb59e9d, type: 3}
-      propertyPath: currentTime
-      value: 
-      objectReference: {fileID: 33875972}
-    - target: {fileID: 5956216041493430255, guid: f179a1ac146356849b68e2dcfeb59e9d, type: 3}
-      propertyPath: m_Name
-      value: Timer PowerUP
-      objectReference: {fileID: 0}
-    - target: {fileID: 6462961880348845415, guid: f179a1ac146356849b68e2dcfeb59e9d, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6462961880348845415, guid: f179a1ac146356849b68e2dcfeb59e9d, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -3.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6462961880348845415, guid: f179a1ac146356849b68e2dcfeb59e9d, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6462961880348845415, guid: f179a1ac146356849b68e2dcfeb59e9d, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6462961880348845415, guid: f179a1ac146356849b68e2dcfeb59e9d, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6462961880348845415, guid: f179a1ac146356849b68e2dcfeb59e9d, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6462961880348845415, guid: f179a1ac146356849b68e2dcfeb59e9d, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6462961880348845415, guid: f179a1ac146356849b68e2dcfeb59e9d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6462961880348845415, guid: f179a1ac146356849b68e2dcfeb59e9d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6462961880348845415, guid: f179a1ac146356849b68e2dcfeb59e9d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: f179a1ac146356849b68e2dcfeb59e9d, type: 3}
 --- !u!1001 &5286305301307198209
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3666,7 +3554,7 @@ PrefabInstance:
     - target: {fileID: 5484396306212247812, guid: 1316bb7e3e72b9c419c56a41397501ec, type: 3}
       propertyPath: powerUp
       value: 
-      objectReference: {fileID: 962179568}
+      objectReference: {fileID: 0}
     - target: {fileID: 8130773929452243662, guid: 1316bb7e3e72b9c419c56a41397501ec, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.86
@@ -3817,7 +3705,6 @@ SceneRoots:
   - {fileID: 1761605240}
   - {fileID: 1547047700}
   - {fileID: 98368685}
-  - {fileID: 392110024}
   - {fileID: 5286305301307198209}
   - {fileID: 6535319120787867918}
   - {fileID: 2006263408}
