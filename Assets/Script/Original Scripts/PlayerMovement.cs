@@ -6,10 +6,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private float jumpForce = 7f;
 
-    [SerializeField] private float flapForce = 3f; // Force applied when flapping
-    [SerializeField] private float flapDuration = 2f; // Maximum duration of flapping
-    private float currentFlapDuration = 0f;
-
     private bool isGrounded = false;
     private Rigidbody2D rb;
     private Collider2D playerCollider;
@@ -18,8 +14,11 @@ public class PlayerMovement : MonoBehaviour
     private bool collectedBlueFish = false;
     private bool collectedRedFish = false;
 
-    private bool isFlapping = false; // Flag to determine if the player is currently flapping
-    private bool canFlap = false;
+    private bool isFlyingUp = false;
+    private bool canFly = false; // If flying is allowed
+    private float flyDuration = 2f; // Fly duration
+    private bool isFlyingOnCooldown = false;
+    private float flyCooldown = 0.8f; // Cooldown between flaps
 
     private bool isSlidingLeft = false;
     private bool isSlidingRight = false;
@@ -68,37 +67,42 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
-            // Set the "IsJumping" parameter to true.
-            animator.SetBool("IsJumping", true);
+            // Determine the direction of the jump animation based on the horizontal input
+            bool isJumpingLeft = horizontalInput < 0;
+            bool isJumpingRight = horizontalInput > 0;
 
-            // JUMPPP
+            // Perform the jump
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+
+            // Set the jump direction parameters in the Animator
+            // animator.SetBool("IsJumpingLeft", isJumpingLeft);
+            // animator.SetBool("IsJumpingRight", isJumpingRight);
+
+            // Set the IsJumpingStationary parameter to true for a stationary jump
+            // animator.SetBool("IsJumpingStationary", true);
         }
 
-        if (isGrounded)
+        // Detect key press for flying (red fish)
+        if (Input.GetKeyDown(KeyCode.Space) && canFly && collectedRedFish && !isFlyingOnCooldown)
         {
-            animator.SetBool("IsJumping", false);
-        }
+            Debug.Log("Is Flap");
 
-        if (Input.GetKeyDown(KeyCode.Space) && collectedRedFish && canFlap)
-        {
-            Debug.Log("Is Flapping UPPPPP");
-            // Reset vertical velocity before flapping
-            rb.AddForce(Vector2.up * flapForce);
+            isFlyingUp = true;
+            rb.velocity = Vector2.zero; // Reset the current velocity
+            rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
 
-            collectedRedFish = false;
-            isFlapping = true;
-            currentFlapDuration = 0f; // Reset the current flap duration
-        }
+            // Set the flying direction parameters in the Animator
+            // animator.SetBool("IsFlyingUp", isFlyingUp);
 
-        if (isFlapping)
-        {
-            currentFlapDuration += Time.deltaTime;
+            // Set the "IsFlying" parameter in the Animator to true
+            // animator.SetBool("IsFlying", true);
 
-            if (currentFlapDuration >= flapDuration)
-            {
-                isFlapping = false;
-            }
+            // Disable flying after a duration
+            StartCoroutine(DisableFlyingAfterDuration());
+
+            // Set cooldown between flaps
+            isFlyingOnCooldown = true;
+            StartCoroutine(ResetFlyingCooldown());
         }
 
         // Detect key press for sliding(blue fish)
@@ -122,6 +126,7 @@ public class PlayerMovement : MonoBehaviour
                 StartCoroutine(DisableSlideAfterDuration(slideDuration));
             }
         }
+
 
         // Detect key release to stop sliding animations and reset actions
         if (Input.GetKeyUp(KeyCode.S))
@@ -154,6 +159,31 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    // Disable flying after a duration
+    private IEnumerator DisableFlyingAfterDuration()
+    {
+        yield return new WaitForSeconds(flyDuration);
+
+        collectedRedFish = false;
+        isFlyingUp = false;
+        rb.gravityScale = 1f; // Restore gravity after flying
+
+        Debug.Log("Fly disabled");
+
+        // Reset flying direction parameters in the Animator
+        animator.SetBool("IsFlyingUp", isFlyingUp);
+
+        // Set the "IsFlying" parameter in the Animator to false
+        animator.SetBool("IsFlying", false);
+    }
+
+    // Reset the flying cooldown to flap again
+    private IEnumerator ResetFlyingCooldown()
+    {
+        yield return new WaitForSeconds(flyCooldown);
+        isFlyingOnCooldown = false; // Reset the flying cooldown
+    }
+
     private IEnumerator DisableSlideAfterDuration(float duration)
     {
         yield return new WaitForSeconds(duration);
@@ -173,16 +203,16 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("BlueFish")) // Assuming "BlueFish" is the tag for the blue fish
+        if (other.CompareTag("BlueFish")) // For interacting with Blue Fish
         {
-            // Handle the collection of the blue fish
+            // Collection of the blue fish
             collectedBlueFish = true;
 
             Destroy(other.gameObject);
         }
-        else if (other.CompareTag("RedFish")) // Assuming "RedFish" is the tag for the red fish
+        else if (other.CompareTag("RedFish")) // For interacting with Red Fish
         {
-            // Handle the collection of the red fish
+            // Collection of the red fish
             collectedRedFish = true;
 
             Debug.Log("Red fish collected");
@@ -230,11 +260,11 @@ public class PlayerMovement : MonoBehaviour
         canSlide = true;
     }
 
-    public void AllowFlap()
-    {
-        canFlap = true;
-        Debug.Log("Flap enabled");
-    }
+public void AllowFly()
+{
+    canFly = true;
+    Debug.Log("Fly enabled");
+}
 }
 
 
