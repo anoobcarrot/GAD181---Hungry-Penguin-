@@ -15,6 +15,8 @@ public class PowerUp : MonoBehaviour
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
+        currentTime = GameObject.FindWithTag("Timer");
+        timer = currentTime.GetComponent<Timer>();
     }
 
     
