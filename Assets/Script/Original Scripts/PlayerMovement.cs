@@ -83,10 +83,9 @@ public class PlayerMovement : MonoBehaviour
         }
 
         // Detect key press for flying (red fish)
-        if (Input.GetKeyDown(KeyCode.Space) && canFly && collectedRedFish && !isFlyingOnCooldown)
+        if (Input.GetKeyDown(KeyCode.Space) && canFly && collectedRedFish &&!isGrounded && !isFlyingOnCooldown)
         {
             Debug.Log("Is Flap");
-
             isFlyingUp = true;
             rb.velocity = Vector2.zero; // Reset the current velocity
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
@@ -164,18 +163,18 @@ public class PlayerMovement : MonoBehaviour
     {
         yield return new WaitForSeconds(flyDuration);
 
-        collectedRedFish = false;
-        isFlyingUp = false;
-        rb.gravityScale = 1f; // Restore gravity after flying
+            collectedRedFish = false;
+            isFlyingUp = false;
+            rb.gravityScale = 1f; // Restore gravity after flying
 
-        Debug.Log("Fly disabled");
+            Debug.Log("Fly disabled");
 
-        // Reset flying direction parameters in the Animator
-        animator.SetBool("IsFlyingUp", isFlyingUp);
+            // Reset flying direction parameters in the Animator
+            animator.SetBool("IsFlyingUp", isFlyingUp);
 
-        // Set the "IsFlying" parameter in the Animator to false
-        animator.SetBool("IsFlying", false);
-    }
+            // Set the "IsFlying" parameter in the Animator to false
+            animator.SetBool("IsFlying", false);
+        }
 
     // Reset the flying cooldown to flap again
     private IEnumerator ResetFlyingCooldown()
