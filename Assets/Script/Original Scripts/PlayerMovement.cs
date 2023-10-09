@@ -5,6 +5,7 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private float jumpForce = 7f;
+    [SerializeField] private int collectedRedFishCount = 0;
 
     private bool isGrounded = false;
     private Rigidbody2D rb;
@@ -12,7 +13,6 @@ public class PlayerMovement : MonoBehaviour
     private Animator animator;
 
     private bool collectedBlueFish = false;
-    private bool collectedRedFish = false;
 
     private bool isFlyingUp = false;
     private bool canFly = false; // If flying is allowed
@@ -88,7 +88,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         // Detect key press for flying (red fish)
-        if (Input.GetKeyDown(KeyCode.Space) && canFly && collectedRedFish &&!isGrounded && !isFlyingOnCooldown)
+        if (Input.GetKeyDown(KeyCode.Space) && canFly && collectedRedFishCount > 0 && !isGrounded && !isFlyingOnCooldown)
         {
             Debug.Log("Is Flap");
             isFlyingUp = true;
@@ -163,18 +163,26 @@ public class PlayerMovement : MonoBehaviour
     {
         yield return new WaitForSeconds(flyDuration);
 
-            collectedRedFish = false;
-            isFlyingUp = false;
-            rb.gravityScale = 1f; // Restore gravity after flying
-
+        if (collectedRedFishCount > 0)
+        {
+            collectedRedFishCount--; // Decrease the count
+        }
+        else
+        {
+            // If no redfish left, disable flying
+            canFly = false;
             Debug.Log("Fly disabled");
+        }
 
-            // Reset flying direction parameters in the Animator
-            animator.SetBool("IsFlyingUp", isFlyingUp);
+        isFlyingUp = false;
+        rb.gravityScale = 1f; // Restore gravity after flying
+
+        // Reset flying direction parameters in the Animator
+        animator.SetBool("IsFlyingUp", isFlyingUp);
 
             // Set the "IsFlying" parameter in the Animator to false
             animator.SetBool("IsFlying", false);
-        }
+    }
 
     // Reset the flying cooldown to flap again
     private IEnumerator ResetFlyingCooldown()
@@ -208,12 +216,16 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (other.CompareTag("RedFish")) // For interacting with Red Fish
         {
-            // Collection of the red fish
-            collectedRedFish = true;
+            // Collect the red fish
+            collectedRedFishCount++;
 
             Debug.Log("Red fish collected");
 
-            Destroy(other.gameObject);
+            // Disable the collected red fish object
+            other.gameObject.SetActive(false);
+
+            // Notify the Fish Collection Manager that this fish is collected
+            FishCollectionManager.instance.CollectFish(other.gameObject);
         }
 
         else if (other.CompareTag("Enemy")) // Enemy Tag
