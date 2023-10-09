@@ -20,8 +20,7 @@ public class PlayerMovement : MonoBehaviour
     private bool isFlyingOnCooldown = false;
     private float flyCooldown = 0.8f; // Cooldown between flaps
 
-    private bool isSlidingLeft = false;
-    private bool isSlidingRight = false;
+    private bool isWalking = false;
     private bool isSliding = false;
     private bool canSlide = false; // Flag to determine if sliding is allowed
     private float slideDuration = 3f; // Duration of the slide
@@ -59,27 +58,33 @@ public class PlayerMovement : MonoBehaviour
         // Update the player's position
         rb.position = currentPosition;
 
-        bool isWalking = movement != Vector2.zero;
+        //for animations
+        if (movement.x != 0)
+        {
+            isWalking = true;
+        }
+        else
+        {
+            isWalking = false;
+        }
+        //for animations
         animator.SetBool("IsWalking", isWalking);
+        //for animations
+        if (movement.y < 0.01f && movement.y > -0.01f)
+        {
+            animator.SetBool("IsJumping", false);
+        }
 
         // Horizontal Parameter
         animator.SetFloat("Horizontal", horizontalInput);
 
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
-            // Determine the direction of the jump animation based on the horizontal input
-            bool isJumpingLeft = horizontalInput < 0;
-            bool isJumpingRight = horizontalInput > 0;
-
             // Perform the jump
+            animator.SetBool("IsJumping", true);
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-
-            // Set the jump direction parameters in the Animator
-            // animator.SetBool("IsJumpingLeft", isJumpingLeft);
-            // animator.SetBool("IsJumpingRight", isJumpingRight);
-
-            // Set the IsJumpingStationary parameter to true for a stationary jump
-            // animator.SetBool("IsJumpingStationary", true);
+            
+            
         }
 
         // Detect key press for flying (red fish)
@@ -110,35 +115,18 @@ public class PlayerMovement : MonoBehaviour
             // Reset the collectedBlueFish flag
             collectedBlueFish = false;
 
-            // Determine the direction of the slide animation based on the horizontal input
-            isSlidingLeft = horizontalInput < 0;
-            isSlidingRight = horizontalInput > 0;
-
             // Set the slide direction parameters in the Animator
-            animator.SetBool("IsSlidingLeft", isSlidingLeft);
-            animator.SetBool("IsSlidingRight", isSlidingRight);
+            animator.SetBool("IsSliding", true);
 
-            if (isSlidingLeft || isSlidingRight)
-            {
-                moveSpeed *= 2f; // Double the move speed while sliding left or right
-                isSliding = true; // Set the sliding flag to true
-                StartCoroutine(DisableSlideAfterDuration(slideDuration));
-            }
+           
+            moveSpeed *= 2f; // Double the move speed while sliding left or right
+            isSliding = true; // Set the sliding flag to true
+            StartCoroutine(DisableSlideAfterDuration(slideDuration));
+            Debug.Log("is sliding");
+           
         }
 
-
-        // Detect key release to stop sliding animations and reset actions
-        if (Input.GetKeyUp(KeyCode.S))
-        {
-            // Reset slide direction parameters in the Animator
-            animator.SetBool("IsSlidingLeft", false);
-            animator.SetBool("IsSlidingRight", false);
-
-            moveSpeed = 5f; // Reset move speed to the default value
-            isSliding = false; // Set the sliding flag to false
-        }
-
-        if (isCollidingWithEnemy)
+        if (isCollidingWithEnemy && isSliding == false)
         {
             // If so, continuously damage the player's health
             PlayerHealth playerHealth = GetComponent<PlayerHealth>();
@@ -147,14 +135,26 @@ public class PlayerMovement : MonoBehaviour
                 playerHealth.TakeDamage(1); // Damage the player health
             }
         }
+
+        // Detect key release to stop sliding animations and reset actions
+        if (Input.GetKeyUp(KeyCode.S))
+        {
+            // Reset slide direction parameters in the Animator
+            animator.SetBool("IsSliding", false);
+
+            moveSpeed = 5f; // Reset move speed to the default value
+            isSliding = false; // Set the sliding flag to false
+        }
+
+       
     }
 
-        private void LateUpdate()
+    private void LateUpdate()
     {
         // Reset the jump direction parameters in the Animator when grounded
         if (isGrounded)
         {
-            animator.SetBool("IsJumping", false);
+            //animator.SetBool("IsJumping", false);
         }
     }
 
@@ -189,15 +189,12 @@ public class PlayerMovement : MonoBehaviour
 
         // Disable sliding and reset sliding animation
         canSlide = false;
-        isSlidingLeft = false;
-        isSlidingRight = false;
+        isSliding = false;
 
         // Reset move speed to the default value
         moveSpeed = 5f;
 
-        // Reset sliding animation
-        animator.SetBool("IsSlidingLeft", false);
-        animator.SetBool("IsSlidingRight", false);
+        animator.SetBool("IsSliding", false);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -221,6 +218,7 @@ public class PlayerMovement : MonoBehaviour
 
         else if (other.CompareTag("Enemy")) // Enemy Tag
         {
+            Debug.Log("collided with enemy");
             // Check if player is currently sliding
             if (isSliding)
             {
@@ -232,6 +230,7 @@ public class PlayerMovement : MonoBehaviour
                 {
                     enemy.TakeDamage(1); // Damage enemy 
                     playerHealth.SetEnemyDestroyed(true); // Set the enemy destroyed flag
+                    Debug.Log("Enemy damaged by player sliding.");
                 }
             }
 
@@ -259,11 +258,11 @@ public class PlayerMovement : MonoBehaviour
         canSlide = true;
     }
 
-public void AllowFly()
-{
-    canFly = true;
-    Debug.Log("Fly enabled");
-}
+    public void AllowFly()
+    {
+        canFly = true;
+        Debug.Log("Fly enabled");
+    }
 }
 
 

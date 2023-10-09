@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class PlayerHealth : MonoBehaviour
 {
     [SerializeField] private int maxHealth = 3;
-    private int currentHealth;
+    [SerializeField] private int currentHealth;
     [SerializeField] private Image[] heartImages;
 
     // Reference to the PlayerMovement script
@@ -32,6 +32,7 @@ public class PlayerHealth : MonoBehaviour
         // Check if the player can take damage and is not sliding
         if (!canTakeDamage || (playerMovement != null && playerMovement.IsSliding))
         {
+            Debug.Log("Player cannot take damage right now.");
             return; // Exit the function if the player can't take more damage yet or is sliding
         }
 
