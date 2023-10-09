@@ -10,13 +10,10 @@ public class LoadLevelFish : MonoBehaviour
     public GameObject playerObject; // Reference to the game object to disable
     private Animator animator; // ref to animator
     [SerializeField] private Timer timer; // ref to timer script
-
-    private AudioSource audioSource;
-    public AudioClip youWonSound;
+    [SerializeField] private MusicManager musicManager; // ref to timer script
 
     private void Awake()
     {
-        audioSource = GetComponent<AudioSource>();
         animator = GetComponent<Animator>();
     }
 
@@ -30,9 +27,6 @@ public class LoadLevelFish : MonoBehaviour
                 // Disable the player game object
                 playerObject.SetActive(false);
 
-                // Play sound effect
-                audioSource.PlayOneShot(youWonSound);
-
                 // Animation start
                 animator.SetBool("ontrigger", true);
 
@@ -40,6 +34,12 @@ public class LoadLevelFish : MonoBehaviour
                 if (timer != null)
                 {
                     timer.StopTimer();
+                }
+
+                // Call the levelcompletemusic method from the music script
+                if (musicManager != null)
+                {
+                    musicManager.LevelCompleteMusic();
                 }
 
                 // Call The LoadLevelDelayed method after a delay
