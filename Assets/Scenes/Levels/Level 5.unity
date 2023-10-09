@@ -392,7 +392,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 6.5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -438,7 +438,7 @@ MonoBehaviour:
   target: {fileID: 153216028}
   smoothing: 3
   followYAxis: 1
-  offset: {x: 4, y: 2, z: -10}
+  offset: {x: 0, y: 2, z: -10}
 --- !u!1 &153216021 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8754500265547739402, guid: 454dbaeb67eb7f44090f678fb2506ffb, type: 3}
@@ -2623,7 +2623,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 11
-      m_TileSpriteIndex: 11
+      m_TileSpriteIndex: 17
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -3510,8 +3510,8 @@ Tilemap:
     m_Data: {fileID: -1024392078, guid: 3522f507301557f4c9957f119bf4111e, type: 3}
   - m_RefCount: 2
     m_Data: {fileID: -177147831, guid: 3522f507301557f4c9957f119bf4111e, type: 3}
-  - m_RefCount: 1
-    m_Data: {fileID: 499291314, guid: 3522f507301557f4c9957f119bf4111e, type: 3}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   - m_RefCount: 1
     m_Data: {fileID: 325064665, guid: 3522f507301557f4c9957f119bf4111e, type: 3}
   - m_RefCount: 1
@@ -3522,8 +3522,8 @@ Tilemap:
     m_Data: {fileID: -113446421, guid: 3522f507301557f4c9957f119bf4111e, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: -1866941959, guid: 3522f507301557f4c9957f119bf4111e, type: 3}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
+  - m_RefCount: 1
+    m_Data: {fileID: 499291314, guid: 3522f507301557f4c9957f119bf4111e, type: 3}
   m_TileMatrixArray:
   - m_RefCount: 255
     m_Data:
