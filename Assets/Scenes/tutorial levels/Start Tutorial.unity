@@ -959,7 +959,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 8a2b9e2a607dd2143b58c44bc32410b4, type: 3}
-    m_FontSize: 100
+    m_FontSize: 60
     m_FontStyle: 1
     m_BestFit: 0
     m_MinSize: 1
@@ -970,7 +970,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: TUTORIAL - YOU HAVE 10 SECONDS EACH LEVEL!
+  m_Text: "TUTORIAL:\n YOU HAVE 10 SECONDS EACH LEVEL!\nREACH THE IGLOO DOOR TO COMPLETE
+    THE LEVEL"
 --- !u!222 &709925233
 CanvasRenderer:
   m_ObjectHideFlags: 0
