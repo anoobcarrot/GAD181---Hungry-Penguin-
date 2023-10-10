@@ -418,6 +418,17 @@ MonoBehaviour:
   smoothing: 3
   followYAxis: 1
   offset: {x: 0, y: 2, z: -10}
+--- !u!114 &282669567 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9114214138863382231, guid: 2df247e6139b55f4893093e3b33dcaa1, type: 3}
+  m_PrefabInstance: {fileID: 897386419}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c4a4d8a26fa725469e6d393e86485bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &444663642
 GameObject:
   m_ObjectHideFlags: 0
@@ -8261,7 +8272,7 @@ PrefabInstance:
     - target: {fileID: 3390645682489611225, guid: fc97d1cdc121e33478e09388bde39d80, type: 3}
       propertyPath: musicManager
       value: 
-      objectReference: {fileID: 9114214138863382231, guid: 2df247e6139b55f4893093e3b33dcaa1, type: 3}
+      objectReference: {fileID: 282669567}
     - target: {fileID: 3390645682489611225, guid: fc97d1cdc121e33478e09388bde39d80, type: 3}
       propertyPath: playerObject
       value: 
