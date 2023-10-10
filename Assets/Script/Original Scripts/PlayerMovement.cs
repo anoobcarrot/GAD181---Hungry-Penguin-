@@ -47,7 +47,7 @@ public class PlayerMovement : MonoBehaviour
         // Define a ray that goes straight down from the player's position
         Vector2 rayOrigin = rb.position;
         Vector2 rayDirection = Vector2.down;
-        float rayDistance = 1f; // Adjust this distance as needed
+        float rayDistance = 0.7f; // Adjust this distance as needed
 
         // Perform a raycast to check if the player is grounded
         RaycastHit2D hit = Physics2D.Raycast(rayOrigin, rayDirection, rayDistance, groundLayer);
