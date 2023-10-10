@@ -335,7 +335,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 640aae67794514b4f90a66e9d81f9da7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 2882603851778948275, guid: 558764a5229f75f42a5875aaffe73210, type: 3}
+  target: {fileID: 227817245}
   smoothing: 3
   followYAxis: 1
   offset: {x: 0, y: 2, z: -10}
@@ -468,6 +468,11 @@ PrefabInstance:
 --- !u!1 &227817237 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2280250011212295995, guid: 558764a5229f75f42a5875aaffe73210, type: 3}
+  m_PrefabInstance: {fileID: 227817236}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &227817245 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2882603851778948275, guid: 558764a5229f75f42a5875aaffe73210, type: 3}
   m_PrefabInstance: {fileID: 227817236}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &378939147

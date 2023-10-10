@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8255150828576560245}
   - component: {fileID: 574529642182090606}
   - component: {fileID: 434488317305193923}
-  - component: {fileID: 2921991858782879577}
+  - component: {fileID: 3677321718568055464}
   - component: {fileID: 3577653144362068270}
   - component: {fileID: 4971390936140055426}
   m_Layer: 0
@@ -182,15 +182,15 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -0.3125, y: 0.65625}
-      - {x: -0.5625, y: 0.40625}
-      - {x: -0.5625, y: -0.65625}
-      - {x: 0.4375, y: -0.65625}
-      - {x: 0.5625, y: -0.53125}
-      - {x: 0.5625, y: 0.40625}
-      - {x: 0.3125, y: 0.65625}
+    - - {x: -0.24635315, y: 0.5950017}
+      - {x: -0.3767872, y: 0.35318923}
+      - {x: -0.34267616, y: -0.65625}
+      - {x: 0.35962486, y: -0.65625}
+      - {x: 0.41292858, y: -0.4892218}
+      - {x: 0.3818941, y: 0.42212725}
+      - {x: 0.25505924, y: 0.59439564}
   m_UseDelaunayMesh: 0
---- !u!60 &2921991858782879577
+--- !u!60 &3677321718568055464
 PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -234,13 +234,13 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -0.3125, y: 0.65625}
-      - {x: -0.5625, y: 0.40625}
-      - {x: -0.5625, y: -0.65625}
-      - {x: 0.4375, y: -0.65625}
-      - {x: 0.5625, y: -0.53125}
-      - {x: 0.5625, y: 0.40625}
-      - {x: 0.3125, y: 0.65625}
+    - - {x: -0.24635315, y: 0.5950017}
+      - {x: -0.3767872, y: 0.35318923}
+      - {x: -0.34267616, y: -0.65625}
+      - {x: 0.35962486, y: -0.65625}
+      - {x: 0.41292858, y: -0.4892218}
+      - {x: 0.3818941, y: 0.42212725}
+      - {x: 0.25505924, y: 0.59439564}
   m_UseDelaunayMesh: 0
 --- !u!114 &3577653144362068270
 MonoBehaviour:
@@ -256,6 +256,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 5
   jumpForce: 7
+  collectedRedFishCount: 0
 --- !u!114 &4971390936140055426
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -269,6 +270,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 3
+  currentHealth: 0
   heartImages:
   - {fileID: 0}
   - {fileID: 0}

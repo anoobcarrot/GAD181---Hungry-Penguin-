@@ -44,8 +44,16 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        // Check if the player is grounded 
-        isGrounded = playerCollider.IsTouchingLayers(LayerMask.GetMask("Ground")); // Get Ground Layer
+        // Define a ray that goes straight down from the player's position
+        Vector2 rayOrigin = rb.position;
+        Vector2 rayDirection = Vector2.down;
+        float rayDistance = 1f; // Adjust this distance as needed
+
+        // Perform a raycast to check if the player is grounded
+        RaycastHit2D hit = Physics2D.Raycast(rayOrigin, rayDirection, rayDistance, groundLayer);
+
+        // Check if the raycast hits something on the "Ground" layer
+        isGrounded = hit.collider != null;
 
         // Move the player horizontally
         float horizontalInput = Input.GetAxis("Horizontal");
